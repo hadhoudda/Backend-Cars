@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/test") //localhost:8080/test
 public class TestController {
 	
-	@GetMapping	
+	@GetMapping	//localhost:8080/test
 	public String TestString() {
 		return  "lien de test";
 	}
 	
-	@GetMapping("/get")
+	@GetMapping("/get") //localhost:8080/api/test/get
 	public String getString() {
 		return "get ok";
 	}
 	
-	@GetMapping("/get2")
+	@GetMapping("/get2") //localhost:8080/api/test/get2
 	public String getString2() {
 		return "get2 ok";
 	}

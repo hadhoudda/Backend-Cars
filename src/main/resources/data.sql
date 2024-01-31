@@ -1,0 +1,22 @@
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS avis;
+
+CREATE TABLE clients (
+	id_client integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	email VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE avis (
+	id integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	texte VARCHAR (100),
+	sentiment VARCHAR(50) 
+	
+);
+
+ALTER TABLE avis
+ADD id_avis INT;
+
+ALTER TABLE avis
+ADD FOREIGN KEY (id_avis) REFERENCES clients (id_client)
+ON DELETE CASCADE;
+
