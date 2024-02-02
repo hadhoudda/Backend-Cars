@@ -3,6 +3,9 @@ package com.syaweb.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +31,20 @@ public class UserController {
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping(path="/utilisateur:{id}") 
-	public UserModel getUtilisateur(@PathVariable Long id) {
-		return userService.findUserById(id);
+//	@GetMapping(path="/{id}") 
+//	public UserModel getUtilisateur(@PathVariable Long id) {
+//		return userService.findUserById(id);
+//	}
+	
+	@GetMapping(path="/{id}") 
+	public ResponseEntity<UserModel> getUtilisateur(@PathVariable Long id) {
+		UserModel userModel = userService.findUserById(id);
+		if(userModel == null) {
+			return new ResponseEntity<UserModel>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			return new ResponseEntity<UserModel>(userModel , HttpStatus.OK);
+		}
 	}
 	
 	@PostMapping
@@ -43,10 +57,24 @@ public class UserController {
 		return userService.updateUser(user);
 	}
 	
+//	
+//	@DeleteMapping("/{id}")
+//	public void deleteUtilisateur(@PathVariable Long id) {
+//		userService.deleteUser(id);
+//	}
+	
 	@DeleteMapping("/{id}")
-	public void deleteUtilisateur(@PathVariable Long id) {
-		userService.deleteUser(id);
+	public ResponseEntity<UserModel> deleteUtilisateur(@PathVariable Long id) {
+		UserModel userModel = userService.findUserById(id);
+		if(userModel == null) {
+			return new ResponseEntity<UserModel>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			userService.deleteUser(id);
+			return new ResponseEntity<UserModel>( HttpStatus.OK);
+		}
 	}
+		
 	
 	
 }
