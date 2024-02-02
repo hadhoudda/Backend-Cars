@@ -1,34 +1,51 @@
 package com.syaweb.backend.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.syaweb.backend.model.UserModel;
+import com.syaweb.backend.service.UserService;
 
 @RestController
 @RequestMapping("/utilisateur") //localhost:8080/utilisateur
 public class UserController {
 	
-	@GetMapping(path="/allUtilisateurs") //localhost:8080/utilisateur/allUtilisateurs
-	public String getUtilisateur() {
-		return "utilisateur s'affiche";
+	@Autowired
+	private UserService userService; 
+	
+	
+	@GetMapping(path="/all") //localhost:8080/utilisateur/all
+	public List<UserModel> getAllUtilisateur() {
+		return userService.getAllUsers();
+	}
+	
+	@GetMapping(path="/utilisateur:{id}") 
+	public UserModel getUtilisateur(@PathVariable Long id) {
+		return userService.findUserById(id);
 	}
 	
 	@PostMapping
-	public String posttUtilisateur() {
-		return "creation utilisateur";
+	public UserModel createUtilisateur(@RequestBody UserModel user) {
+		return userService.createUser(user);
 	}
 	
 	@PutMapping
-	public String updateUtilisateur() {
-		return "mise à jour utilisateur";
+	public UserModel updateUtilisateur(@RequestBody UserModel user) {
+		return userService.updateUser(user);
 	}
 	
-	@DeleteMapping
-	public String deleteUtilisateur() {
-		return "utilisateur etait supprime";
+	@DeleteMapping("/{id}")
+	public void deleteUtilisateur(@PathVariable Long id) {
+		userService.deleteUser(id);
 	}
 	
 	

@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 @Entity
 public class UserModel implements Serializable{
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
