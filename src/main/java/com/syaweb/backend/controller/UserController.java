@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +30,8 @@ public class UserController {
 		return userService.getAllUsers();
 	}
 	
-//	@GetMapping(path="/{id}") 
-//	public UserModel getUtilisateur(@PathVariable Long id) {
-//		return userService.findUserById(id);
-//	}
-	
-	@GetMapping(path="/{id}") 
+	//***** premier méthode de verbe get id à partir de l'url  ****//
+	@GetMapping(path="/{id}") //localhost:8080/utilisateur/2
 	public ResponseEntity<UserModel> getUtilisateur(@PathVariable Long id) {
 		UserModel userModel = userService.findUserById(id);
 		if(userModel == null) {
@@ -46,6 +41,30 @@ public class UserController {
 			return new ResponseEntity<UserModel>(userModel , HttpStatus.OK);
 		}
 	}
+	
+	
+	@GetMapping(path="/firstName/{firstName}") //localhost:8080/utilisateur/firstName
+	public ResponseEntity<List<UserModel>> getUtilisateurFirstName(@PathVariable String firstName) {
+		List<UserModel> usersModel = userService.findByFirstName(firstName);
+		if(usersModel.isEmpty()) {
+			return new ResponseEntity<List<UserModel>>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			return new ResponseEntity<List<UserModel>>(usersModel , HttpStatus.OK);
+		}
+	}
+	
+//	//***** dexieme méthode de verbe get id à partir de request  plus ancienne****//
+//	@GetMapping(path="/findidReqParams") //localhost:8080/utilisateur/findidReqParams?id=2
+//	public ResponseEntity<UserModel> getUtilisateurId(@RequestParam Long id) {
+//		UserModel userModel = userService.findUserById(id);
+//		if(userModel == null) {
+//			return new ResponseEntity<UserModel>(HttpStatus.NO_CONTENT);
+//		}
+//		else {
+//			return new ResponseEntity<UserModel>(userModel , HttpStatus.OK);
+//		}
+//	}
 	
 	@PostMapping
 	public UserModel createUtilisateur(@RequestBody UserModel user) {
@@ -75,6 +94,7 @@ public class UserController {
 		}
 	}
 		
+
 	
 	
 }

@@ -52,6 +52,11 @@ public class UserServiceImplement implements UserService{
 	public void deleteUser(Long id) {
 		userRepositery.deleteById(id);
 	}
+
+	@Override
+	public List<UserModel> findByFirstName(String firstName) {
+		return userRepositery.findByFirstName(firstName);
+	}
 	
 	
 }
