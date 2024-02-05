@@ -57,6 +57,11 @@ public class UserServiceImplement implements UserService{
 	public List<UserModel> findByFirstName(String firstName) {
 		return userRepositery.findByFirstName(firstName);
 	}
+
+	@Override
+	public List<UserModel> findByFirstNameAndLastName(String firstName, String lastName) {
+		return userRepositery.findByFirstNameAndLastName(firstName, lastName);
+	}
 	
 	
 }

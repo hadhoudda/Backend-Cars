@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syaweb.backend.model.UserModel;
+import com.syaweb.backend.requests.FirstNameAndLastNameRequest;
 import com.syaweb.backend.service.UserService;
 
 @RestController
@@ -43,10 +44,22 @@ public class UserController {
 	}
 	
 	
-	@GetMapping(path="/firstName/{firstName}") //localhost:8080/utilisateur/firstName
+	@GetMapping(path="/firstName/{firstName}") //localhost:8080/utilisateur/firstName/Houda
 	public ResponseEntity<List<UserModel>> getUtilisateurFirstName(@PathVariable String firstName) {
 		List<UserModel> usersModel = userService.findByFirstName(firstName);
 		if(usersModel.isEmpty()) {
+			return new ResponseEntity<List<UserModel>>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			return new ResponseEntity<List<UserModel>>(usersModel , HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(path="/firstNameAndlasName") //localhost:8080/utilisateur/firstNameAndlasName
+	//le MVC prend le charge de convertir le body json en requet
+	public ResponseEntity<List<UserModel>> findByFirstNameAndLastName(@RequestBody FirstNameAndLastNameRequest firstNameAndLastNameRequest) {
+		List<UserModel> usersModel = userService.findByFirstNameAndLastName(firstNameAndLastNameRequest.getFirstName(), firstNameAndLastNameRequest.getLastName());
+		if(usersModel.isEmpty() ){
 			return new ResponseEntity<List<UserModel>>(HttpStatus.NO_CONTENT);
 		}
 		else {

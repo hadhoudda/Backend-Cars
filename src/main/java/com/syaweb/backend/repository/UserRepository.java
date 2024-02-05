@@ -11,6 +11,6 @@ import com.syaweb.backend.model.UserModel;
 public interface UserRepository extends JpaRepository<UserModel, Long>{
 	
 	public List<UserModel> findByFirstName(String firstName); //firstName --> variable de UserModel attention au majscul
-	
+	public List<UserModel> findByFirstNameAndLastName(String firstName, String lastName);
 
 }

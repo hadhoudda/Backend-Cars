@@ -15,6 +15,7 @@ public interface UserService {
 	
 	//**** Methode avancees ****//
 	public List<UserModel> findByFirstName(String firstName);
+	public List<UserModel> findByFirstNameAndLastName(String firstName, String lastName);
 	
 
 }
