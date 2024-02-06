@@ -17,5 +17,8 @@ public interface UserService {
 	public List<UserModel> findByFirstName(String firstName);
 	public List<UserModel> findByFirstNameAndLastName(String firstName, String lastName);
 	
+	//**** Methode avec request JPQL ****//
+	public List<UserModel> findByFirstNameAndLastNameJPQL(String firstName, String lastName);
+	
 
 }

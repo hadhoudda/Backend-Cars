@@ -67,6 +67,17 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping(path="/firstNameAndlasNameJPQL") //localhost:8080/utilisateur/firstNameAndlasNameJPQL
+	public ResponseEntity<List<UserModel>> findByFirstNameAndLastNameJPQL(@RequestBody FirstNameAndLastNameRequest firstNameAndLastNameRequest) {
+		List<UserModel> usersModel = userService.findByFirstNameAndLastNameJPQL(firstNameAndLastNameRequest.getFirstName(), firstNameAndLastNameRequest.getLastName());
+		if(usersModel.isEmpty() ){
+			return new ResponseEntity<List<UserModel>>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			return new ResponseEntity<List<UserModel>>(usersModel , HttpStatus.OK);
+		}
+	}
+	
 //	//***** dexieme méthode de verbe get id à partir de request  plus ancienne****//
 //	@GetMapping(path="/findidReqParams") //localhost:8080/utilisateur/findidReqParams?id=2
 //	public ResponseEntity<UserModel> getUtilisateurId(@RequestParam Long id) {
