@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syaweb.backend.model.UserModel;
+import com.syaweb.backend.requests.AgeRequest;
 import com.syaweb.backend.requests.FirstNameAndLastNameRequest;
 import com.syaweb.backend.service.UserService;
 
@@ -57,7 +58,7 @@ public class UserController {
 	
 	@GetMapping(path="/firstNameAndlasName") //localhost:8080/utilisateur/firstNameAndlasName
 	//le MVC prend le charge de convertir le body json en requet
-	public ResponseEntity<List<UserModel>> findByFirstNameAndLastName(@RequestBody FirstNameAndLastNameRequest firstNameAndLastNameRequest) {
+	public ResponseEntity<List<UserModel>> getFindByFirstNameAndLastName(@RequestBody FirstNameAndLastNameRequest firstNameAndLastNameRequest) {
 		List<UserModel> usersModel = userService.findByFirstNameAndLastName(firstNameAndLastNameRequest.getFirstName(), firstNameAndLastNameRequest.getLastName());
 		if(usersModel.isEmpty() ){
 			return new ResponseEntity<List<UserModel>>(HttpStatus.NO_CONTENT);
@@ -68,7 +69,7 @@ public class UserController {
 	}
 	
 	@GetMapping(path="/firstNameAndlasNameJPQL") //localhost:8080/utilisateur/firstNameAndlasNameJPQL
-	public ResponseEntity<List<UserModel>> findByFirstNameAndLastNameJPQL(@RequestBody FirstNameAndLastNameRequest firstNameAndLastNameRequest) {
+	public ResponseEntity<List<UserModel>> getFindByFirstNameAndLastNameJPQL(@RequestBody FirstNameAndLastNameRequest  firstNameAndLastNameRequest) {
 		List<UserModel> usersModel = userService.findByFirstNameAndLastNameJPQL(firstNameAndLastNameRequest.getFirstName(), firstNameAndLastNameRequest.getLastName());
 		if(usersModel.isEmpty() ){
 			return new ResponseEntity<List<UserModel>>(HttpStatus.NO_CONTENT);
@@ -77,6 +78,8 @@ public class UserController {
 			return new ResponseEntity<List<UserModel>>(usersModel , HttpStatus.OK);
 		}
 	}
+	
+	
 	
 //	//***** dexieme méthode de verbe get id à partir de request  plus ancienne****//
 //	@GetMapping(path="/findidReqParams") //localhost:8080/utilisateur/findidReqParams?id=2

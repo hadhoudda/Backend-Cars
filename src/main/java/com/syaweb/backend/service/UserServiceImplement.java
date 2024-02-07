@@ -67,6 +67,9 @@ public class UserServiceImplement implements UserService{
 	public List<UserModel> findByFirstNameAndLastNameJPQL(String firstName, String lastName) {
 		return userRepositery.findByFirstNameAndLastNameJPQL(firstName, lastName);
 	}
+
+	
+	
 	
 	
 }

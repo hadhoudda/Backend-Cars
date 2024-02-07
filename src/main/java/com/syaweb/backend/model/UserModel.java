@@ -4,6 +4,7 @@ package com.syaweb.backend.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,15 +15,23 @@ import jakarta.persistence.Id;
 public class UserModel implements Serializable{
 	
 	@Id
+	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(name="first_name")
+	
+	@Basic(optional = false)
+    @Column(nullable = false)
 	private String firstName;
-	@Column(name="last_name")
+	@Basic(optional = false)
+    @Column(nullable = false)
 	private String lastName;
 	@Column(name="age")
 	private int age;
+	@Basic(optional = false)
+    @Column(nullable = false)
 	private String email;
+	@Basic(optional = false)
+    @Column(nullable = false)
 	private String password;
 	private Date starterDate;
 	private Boolean active;
