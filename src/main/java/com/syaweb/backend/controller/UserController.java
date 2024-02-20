@@ -2,6 +2,7 @@ package com.syaweb.backend.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,25 +16,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syaweb.backend.model.UserModel;
-import com.syaweb.backend.requests.AgeRequest;
+//import com.syaweb.backend.requests.AgeRequest;
 import com.syaweb.backend.requests.FirstNameAndLastNameRequest;
 import com.syaweb.backend.service.UserService;
 
 @RestController
-@RequestMapping("/utilisateur") //localhost:8080/utilisateur
+@RequestMapping("/users") //localhost:9000/users
 public class UserController {
 	
 	@Autowired
 	private UserService userService; 
 	
 	
-	@GetMapping(path="/all") //localhost:8080/utilisateur/all
+	@GetMapping() //localhost:9000/users
 	public List<UserModel> getAllUtilisateur() {
 		return userService.getAllUsers();
 	}
 	
 	//***** premier méthode de verbe get id à partir de l'url  ****//
-	@GetMapping(path="/{id}") //localhost:8080/utilisateur/2
+	@GetMapping(path="/{id}") //localhost:9000/users/2
 	public ResponseEntity<UserModel> getUtilisateur(@PathVariable Long id) {
 		UserModel userModel = userService.findUserById(id);
 		if(userModel == null) {
@@ -45,7 +46,7 @@ public class UserController {
 	}
 	
 	
-	@GetMapping(path="/firstName/{firstName}") //localhost:8080/utilisateur/firstName/Houda
+	@GetMapping(path="/firstName/{firstName}") //localhost:9000/users/firstName/Houda
 	public ResponseEntity<List<UserModel>> getUtilisateurFirstName(@PathVariable String firstName) {
 		List<UserModel> usersModel = userService.findByFirstName(firstName);
 		if(usersModel.isEmpty()) {
@@ -56,7 +57,7 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping(path="/firstNameAndlasName") //localhost:8080/utilisateur/firstNameAndlasName
+	@GetMapping(path="/firstNameAndlasName") //localhost:9000/users/firstNameAndlasName
 	//le MVC prend le charge de convertir le body json en requet
 	public ResponseEntity<List<UserModel>> getFindByFirstNameAndLastName(@RequestBody FirstNameAndLastNameRequest firstNameAndLastNameRequest) {
 		List<UserModel> usersModel = userService.findByFirstNameAndLastName(firstNameAndLastNameRequest.getFirstName(), firstNameAndLastNameRequest.getLastName());
@@ -68,7 +69,7 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping(path="/firstNameAndlasNameJPQL") //localhost:8080/utilisateur/firstNameAndlasNameJPQL
+	@GetMapping(path="/firstNameAndlasNameJPQL") //localhost:9000/users/firstNameAndlasNameJPQL
 	public ResponseEntity<List<UserModel>> getFindByFirstNameAndLastNameJPQL(@RequestBody FirstNameAndLastNameRequest  firstNameAndLastNameRequest) {
 		List<UserModel> usersModel = userService.findByFirstNameAndLastNameJPQL(firstNameAndLastNameRequest.getFirstName(), firstNameAndLastNameRequest.getLastName());
 		if(usersModel.isEmpty() ){
